@@ -1,0 +1,12 @@
+{
+  "batch_id": "station-07",
+  "unit": "mC",
+  "dictionaries": [
+    {"version": "D1", "unit": "mC", "entries": [[0,5],[1,9]], "missing_code": 255},
+    {"version": "D2", "unit": "mC", "entries": [[0,11],[1,13]], "missing_code": 255}
+  ],
+  "pages": [
+    {"page_id": "Z-first", "dictionary_version": "D1", "codes": [0,1]},
+    {"page_id": "A-later", "dictionary_version": "D2", "codes": [0,1]}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "batch_id": "independent-08",
+  "unit": "mC",
+  "pages": [{"page_id": "zero-probe", "dictionary_version": "D0", "codes": [0,255]}],
+  "dictionaries": [{"version": "D0", "unit": "mC", "entries": [[0,0]], "missing_code": 255}]
+}
