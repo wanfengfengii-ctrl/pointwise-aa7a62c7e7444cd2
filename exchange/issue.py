@@ -4,8 +4,11 @@ from catalog.dictionaries import get_dictionary
 from exchange.envelope import V1Envelope, V1Page, encode_v1
 from exchange.evidence import freeze_dictionary_evidence
 from exchange.issuance_store import IssuedPackage, save_issuance
+from exchange.review_commitments import issue_slice, make_commitment
 from source.freeze import get_frozen_batch
 from source.store import source_transaction
+
+__all__ = ['issue', 'make_commitment', 'issue_slice']
 
 
 def issue(conn: sqlite3.Connection, batch_id: str) -> IssuedPackage:

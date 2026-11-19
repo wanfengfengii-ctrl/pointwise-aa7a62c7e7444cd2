@@ -1,9 +1,19 @@
-"""Run this project's full unittest suite from the repository root."""
+"""Run this project's full verification from the repository root.
+
+The project's single verify entry point runs, in order:
+
+1. the full unittest suite (original V1 regressions plus review ranges);
+2. the joint review-range scenarios in ``review_range_examples``, whose module
+   also re-runs the V1 example checks.
+
+Any failing step exits non-zero.  Exit zero therefore means every check this
+command actually covers passed.
+"""
 import sys
 import unittest
 
 
-def main():
+def run_suite():
     suite = unittest.defaultTestLoader.discover('tests', top_level_dir='.')
     if suite.countTestCases():
         result = unittest.TextTestRunner(verbosity=2).run(suite)
@@ -24,6 +34,21 @@ def main():
           f'unexpected_successes={len(result.unexpectedSuccesses)} '
           f'result={"PASS" if successful else "FAIL"}')
     return 0 if successful else 1
+
+
+def main():
+    status = run_suite()
+    if status != 0:
+        print('verify: unittest suite failed', file=sys.stderr)
+        return status
+    import review_range_examples
+    try:
+        review_range_examples.run_checks()
+    except BaseException as exc:  # report and fail clearly on any check error
+        print(f'verify: joint review-range checks failed: {exc!r}', file=sys.stderr)
+        return 1
+    print('VERIFY SUMMARY result=PASS')
+    return 0
 
 
 if __name__ == '__main__':

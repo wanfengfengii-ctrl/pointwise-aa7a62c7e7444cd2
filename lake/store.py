@@ -29,6 +29,7 @@ def lake_read_transaction(conn: sqlite3.Connection):
 def open_lake(path: str | PathLike[str]) -> sqlite3.Connection:
     from lake.layout import initialize_layout
     from lake.releases import initialize_releases
+    from lake.review_store import initialize_review
 
     conn = sqlite3.connect(path, isolation_level=None)
     try:
@@ -36,6 +37,7 @@ def open_lake(path: str | PathLike[str]) -> sqlite3.Connection:
         with lake_write_transaction(conn):
             initialize_releases(conn)
             initialize_layout(conn)
+            initialize_review(conn)
     except BaseException:
         conn.close()
         raise
